@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Store</title>
+    <script>
+        function addToCart(isbn) {
+            fetch(`cart.php?isbn=${isbn}&action=add`)
+                .then(response => response.json())
+                .then(updateCartDisplay);
+        }
+
+        function updateCartDisplay(cart) {
+            const cartDiv = document.getElementById('cart');
+            if (cart.length === 0) {
+                cartDiv.innerHTML = "Your cart is empty";
+                return;
+            }
+
+            let html = "<h2>Your Shopping Cart</h2><ul>";
+            let total = 0;
+            
+            cart.forEach(item => {
+                html += `<li>${item.title} (ISBN: ${item.isbn}) - $${parseFloat(item.price).toFixed(2)} 
+                         <button onclick="removeFromCart('${item.isbn}')">Remove</button></li>`;
+                total += parseFloat(item.price);
+            });
+            
+            html += `</ul><p>Total: $${total.toFixed(2)}</p>`;
+            cartDiv.innerHTML = html;
+        }
+
+        function removeFromCart(isbn) {
+            fetch(`cart.php?isbn=${isbn}&action=remove`)
+                .then(response => response.json())
+                .then(updateCartDisplay);
+        }
+    </script>
+</head>
+<body>
+    <h1>Welcome to Our Book Store</h1>
+    
+    <div>
+        <h2>Book 1: JavaScript Basics</h2>
+        <p>ISBN: 1234567890 | Price: $29.99</p>
+        <button onclick="addToCart('1234567890')">Add to Cart</button>
+    </div>
+    
+    <div>
+        <h2>Book 2: Advanced JavaScript</h2>
+        <p>ISBN: 0987654321 | Price: $39.99</p>
+        <button onclick="addToCart('0987654321')">Add to Cart</button>
+    </div>
+
+    <div>
+        <h2>Book 3: PHP Programming</h2>
+        <p>ISBN: 1122334455 | Price: $24.99</p>
+        <button onclick="addToCart('1122334455')">Add to Cart</button>
+    </div>
+    
+    <div id="cart">Your cart is empty</div>
+</body>
+</html>

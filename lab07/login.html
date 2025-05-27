@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login with Fetch</title>
+    <style>
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>User Login</h1>
+    <form id="loginForm">
+        <label>Username: <input type="text" id="username" required></label><br>
+        <label>Password: <input type="password" id="password" required></label><br>
+        <button type="submit">Login</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = '';
+            resultDiv.textContent = 'Checking...';
+            
+            try {
+                const response = await fetch('login.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `username=${encodeURIComponent(document.getElementById('username').value)}&password=${encodeURIComponent(document.getElementById('password').value)}`
+                });
+                
+                const data = await response.json();
+                resultDiv.className = data.status;
+                resultDiv.textContent = data.message;
+            } catch (error) {
+                resultDiv.className = 'error';
+                resultDiv.textContent = 'Network error';
+            }
+        });
+    </script>
+</body>
+</html>

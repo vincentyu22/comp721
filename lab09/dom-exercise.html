@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Exercise</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .highlight { background-color: #ffeb3b; }
+        button { margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>DOM Table Manipulation</h1>
+    <table id="myTable">
+        <tr><th>Name</th><th>Age</th><th>Occupation</th></tr>
+        <tr><td>John</td><td>25</td><td>Developer</td></tr>
+        <tr><td>Sarah</td><td>30</td><td>Designer</td></tr>
+    </table>
+    
+    <button onclick="appendRow()">Add Row</button>
+    <button onclick="selectRow()">Select Row</button>
+    <button onclick="removeRow()">Remove Row</button>
+    
+    <script>
+        let selectedRow = null;
+        
+        function appendRow() {
+            const name = prompt("Enter name:", "New Name");
+            const age = prompt("Enter age:", "30");
+            const occupation = prompt("Enter occupation:", "Job Title");
+            
+            if (name && age && occupation) {
+                const table = document.getElementById("myTable");
+                const newRow = table.insertRow(-1);
+                
+                const cell1 = newRow.insertCell(0);
+                const cell2 = newRow.insertCell(1);
+                const cell3 = newRow.insertCell(2);
+                
+                cell1.textContent = name;
+                cell2.textContent = age;
+                cell3.textContent = occupation;
+                
+                // Add click event to select row
+                newRow.addEventListener('click', function() {
+                    if (selectedRow) {
+                        selectedRow.classList.remove('highlight');
+                    }
+                    this.classList.add('highlight');
+                    selectedRow = this;
+                });
+            }
+        }
+        
+        function selectRow() {
+            if (selectedRow) {
+                selectedRow.classList.remove('highlight');
+                selectedRow = null;
+            } else {
+                alert("Please click on a row to select it first");
+            }
+        }
+        
+        function removeRow() {
+            if (selectedRow) {
+                if (confirm("Are you sure you want to remove this row?")) {
+                    selectedRow.remove();
+                    selectedRow = null;
+                }
+            } else {
+                alert("Please select a row to remove first");
+            }
+        }
+        
+        // Add click events to existing rows
+        document.querySelectorAll('#myTable tr').forEach(row => {
+            row.addEventListener('click', function() {
+                if (selectedRow) {
+                    selectedRow.classList.remove('highlight');
+                }
+                this.classList.add('highlight');
+                selectedRow = this;
+            });
+        });
+    </script>
+</body>
+</html>

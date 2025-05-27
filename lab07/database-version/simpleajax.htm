@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+    <title>Ajax Database Lookup</title>
+    <script type="text/javascript" src="simpleajax.js"></script>
+    <style>
+        #targetDiv {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            min-height: 20px;
+        }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head> 
+<body>
+    <H1>Email Lookup Service</H1>
+    <form id="lookupForm">
+        <label>User Name: <input type="text" name="namefield" required> </label>
+        <label><br>Password: <input type="password" name="pwdfield" required> <br><br> </label>
+        <input name="submit" type="button" onClick="getData('data.php','targetDiv', namefield.value, pwdfield.value)" value="Find Email">
+    </form>
+    <div id="targetDiv"> 
+        <p>Enter your credentials to lookup your email.</p>  
+    </div> 
+</body> 
+</html>

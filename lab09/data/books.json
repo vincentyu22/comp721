@@ -1,0 +1,20 @@
+[
+    {
+        "isbn": "1234567890",
+        "title": "JavaScript Basics",
+        "price": 29.99,
+        "description": "Learn JavaScript fundamentals"
+    },
+    {
+        "isbn": "0987654321",
+        "title": "Advanced JavaScript",
+        "price": 39.99,
+        "description": "Deep dive into JavaScript"
+    },
+    {
+        "isbn": "1122334455",
+        "title": "PHP Programming",
+        "price": 24.99,
+        "description": "Introduction to PHP"
+    }
+]
