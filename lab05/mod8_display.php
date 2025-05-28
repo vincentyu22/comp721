@@ -26,9 +26,9 @@ $conn = @mysqli_connect($sql_host,
 		
 		// checks if the execuion was successful
 		if(!$result) {
-			echo "<p>Something is wrong with ". mysqli_error($conn) "</p>";
-		} elseif(mysqli_num_row){
-			echo "<p>yesssss"</p>";
+			echo "<p>Something is wrong with ". mysqli_error($conn). "</p>";
+		} elseif(mysqli_num_rows($result) > 0){
+			echo "<p>yesssss</p>";
 			// Display the retrieved records
 			echo "<table border=\"1\">";
 			echo "<tr>\n"
@@ -53,7 +53,7 @@ $conn = @mysqli_connect($sql_host,
 echo "<p>no record found</p>";
 }		
 	
-
+	}
 ?>
 </body>
 </html>
