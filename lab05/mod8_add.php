@@ -5,6 +5,8 @@
 
 <body>
 <?php
+// that should be memberadd.php
+
 // Include database credentials with correct path
 require_once ("../../files/settings.php");
 	
@@ -17,10 +19,14 @@ require_once ("../../files/settings.php");
 	);
   
 	// Checks if connection is successful
-	if (!$conn) {
+	if (!$conn) 
+	{
 		// Displays an error message
 		echo "<p>Database connection failure</p>";
-	} else {
+		  exit;
+	}
+
+/* else {
 		// Upon successful connection
 		
 		// Get data from the form
@@ -35,18 +41,45 @@ require_once ("../../files/settings.php");
 						."(id, make, model, price)"
 					. "values"
 						."('$id1','$make','$model', $price)";
-echo $query;
+echo $query;*/
+
+
+$fname = trim($_POST["fname"]);
+$lname = trim($_POST["lname"]);
+$gender = $_POST["gender"];
+$email = trim($_POST["email"]);
+$phone = trim($_POST["phone"]);
+
+
 		// executes the query
-		$result = mysqli_query($conn, $query);
+		//$result = mysqli_query($conn, $query);
 		// checks if the execution was successful
-		if(!$result) {
-			echo "<p>Something is wrong with ",	$query, "</p>";
-		} else {
+		if($fname == "" || $lname == "" || $gender == "" || $email == "" || $phone == "") 
+		{
+		   echo "<p>All fields are required. Please go back and complete the form.</p>";
+                    mysqli_close($conn);
+                    exit;
+		} 
+
+$insertQuery = "INSERT INTO vipmember (fname, lname, gender, email, phone)
+                VALUES (?, ?, ?, ?, ?)";
+$stmt = mysqli_prepare($conn, $insertQuery);
+mysqli_stmt_bind_param($stmt, "sssss", $fname, $lname, $gender, $email, $phone);
+
+if (mysqli_stmt_execute($stmt)) {
+    echo "<p>New VIP member added</p>";
+    echo "<a href='vip_member.php'>Return to Home Page</a>";
+} else {
+    echo "<p>Error" . mysqli_error($conn) . "</p>";
+}
+
+/*else {
 			// display an operation successful message
 			echo "<p>Success</p>";
-		} // if successful query operation
+		} // if successful query operation*/
 
 		// close the database connection
+               mysqli_stmt_close($stmt);
 		mysqli_close($conn);
 	}  // if successful database connection
 ?>
