@@ -6,15 +6,28 @@
 <body>
 	<h1>Add Data Form</h1>
 	<form method="post" action="mod8_add.php">
-		<p>	<label for="id">Enter car ID: </label>
-			<input type="text" name="id" id="id" /></p>
-		<p>	<label for="make">Enter make: </label>
-			<input type="text" name="make" id="make" /></p>
-		<p>	<label for="model">Enter model: </label>
-			<input type="text" name="model" id="model" /></p>
-		<p>	<label for="price">Enter price: </label>
-			<input type="text" name="price" id="price" /></p>
-        <p>	<input type="submit" value="Add Item" /></p>
+		<p>	<label for="fname">Enter name: </label>
+			<input type="text" name="fname" id="fname" required /></p>
+		
+		<p>	<label for="make">Enter last nsme: </label>
+			<input type="text" name="lname" id="lname" required/></p>
+		
+		<p>	<label for="gender">Enter gende: </label>
+			<select id="gender" name="gender" required>
+		         <option value="">-- Select Gender --</option>
+                         <option value="M">Male</option>
+                          <option value="F">Female</option>
+                           <option value="O">Other</option> </select>
+</p>
+				
+			<p><label for="email">Enter email: </label>
+			<input type="email" name="email" id="email" required/>
+              </p>
+		<p><label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" required /></p>
+
+		
+        <p>	<input type="submit" value="Add Member" /></p>
 	</form>
 </body>
 </html>
